@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Table1</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+
+    <h1>Hundert Zahlen</h1>
+    <table id="myTable" border="1" class="TableContainer">
+        <!-- here goes our data! -->
+    </table>
+
+</body>
+<script>
+    let table = document.getElementById("myTable");
+    for (let i = 0; i < 10; i++) {
+        let row = table.insertRow();
+        for (let j = 0; j < 10; j++) {
+            let cell = row.insertCell();
+            let text = document.createTextNode(j + 1 + i * 10);
+            cell.appendChild(text);
+        }
+    }
+</script>
+
+</html>

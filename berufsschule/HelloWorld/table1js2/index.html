@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Table1.2</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+
+    <h1>Hundert Zahlen</h1>
+    <table id="myTable" border="1" class="TableContainer">
+        <!-- here goes our data! -->
+    </table>
+
+</body>
+<script>
+    let table = "";
+
+    for (let i = 1; i <= 100; i++) {
+        // Table brak if number is modulu 10
+        if (i % 10 === 1) {
+            table += "<tr>";
+        }
+
+        table += `<td>${i}</td>`;
+    }
+    console.log(table);
+
+    document.getElementById("myTable").innerHTML = `<table border="1" class="TableContainer">${table}</table>`;
+    // or document.querySelector('.TableContainer').innerHTML = `<table id="myTable" border="1" class="TableContainer">${ table }</table>`;
+</script>
+
+</html>
