@@ -12,13 +12,27 @@
 
     <table border="1" class="TableContainer">
         <?php
-        for ($i = 1; $i <= 100; $i++) {
-            // Table brak if number is modulu 10
-            if ($i % 10 == 1) {
-                echo "<tr>";
+
+        $startNumber = 8;
+        $myArray = array();
+
+        // Fill Array
+        for ($i = $startNumber; $i <= 100 + $startNumber - 1; $i++) {
+            $myArray[] = $i; // add i to array (like push())
+        }
+
+        // Build Table (like for(let number in myArray))
+        foreach ($myArray as $number) {
+            // close table row
+            if (($number % 10 == 1 && $number != $startNumber) || sizeof($myArray) == $number - 1) {
+                echo "</tr>";
             }
 
-            echo "<td>" . $i . "</td>";
+            // open table row
+            if ($number % 10 == 1)
+                echo "<tr>";
+
+            echo "<td>" . $number . "</td>";
         }
         ?>
     </table>

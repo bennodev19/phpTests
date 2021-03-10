@@ -9,9 +9,14 @@
 
 <body>
     <?php echo '<h1>Hundert Zahlen</h1>'; ?>
+    <form action="" method="get">
+        <input type="number" name="startNumber" id="startNumber" value="0">
+        <input type="number" name="endNumber" id="endNumber" value="100">
+    </form>
 
     <table border="1" class="TableContainer">
         <?php
+
         function isPrime($n)
         {
             // Corner case
@@ -26,9 +31,13 @@
             return true;
         }
 
-        for ($i = 1; $i <= 100; $i++) {
+        $startNumber = $_GET["startNumber"];
+        $endNumber = $_GET["endNumber"];
+        $lineBrak = sqrt($endNumber);
+
+        for ($i = $startNumber; $i <= $endNumber; $i++) {
             // Table brak if number is modulu 10
-            if ($i % 10 == 1) {
+            if ($i % $lineBrak == 1) {
                 echo "<tr>";
             }
 
