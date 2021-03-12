@@ -12,9 +12,19 @@
 
     <table border="1" class="TableContainer">
         <?php
+        function console_log($output, $with_script_tags = true)
+        {
+            $js_code = 'console.log(' . json_encode($output, JSON_HEX_TAG) .
+                ');';
+            if ($with_script_tags) {
+                $js_code = '<script>' . $js_code . '</script>';
+            }
+            echo $js_code;
+        }
 
-        $startNumber = 8;
-        $myArray = array();
+        $output = "";
+        $startNumber = 10;
+        $myArray = array(); // same as '$myArray = [];'
 
         // Fill Array
         for ($i = $startNumber; $i <= 100 + $startNumber - 1; $i++) {
@@ -22,18 +32,22 @@
         }
 
         // Build Table (like for(let number in myArray))
-        foreach ($myArray as $number) {
+        for ($i = 0; $i < sizeof($myArray); $i++) {
+            $number = $myArray[$i];
+
+            // open table row ($i + 1 because '0 modulu 10 == 0' and '0 modulu 1 == 1')
+            if (($i + 1) % 10 == 1)
+                $output .= "<tr>\n";
+
             // close table row
-            if (($number % 10 == 1 && $number != $startNumber) || sizeof($myArray) == $number - 1) {
-                echo "</tr>";
-            }
+            if (($i + 1) % 10 == 1 || sizeof($myArray) == $i - 1)
+                $output .= "</tr>\n";
 
-            // open table row
-            if ($number % 10 == 1)
-                echo "<tr>";
-
-            echo "<td>" . $number . "</td>";
+            $output .= ("<td>$number</td>\n");
         }
+
+        console_log($myArray);
+        echo $output;
         ?>
     </table>
 
