@@ -25,25 +25,31 @@
         $output = "";
         $startNumber = 10;
         $myArray = array(); // same as '$myArray = [];'
+        $lineBrak = 10;
 
         // Fill Array
         for ($i = $startNumber; $i <= 100 + $startNumber - 1; $i++) {
             $myArray[] = $i; // add i to array (like push())
         }
 
-        // Build Table (like for(let number in myArray))
         for ($i = 0; $i < sizeof($myArray); $i++) {
             $number = $myArray[$i];
 
-            // open table row ($i + 1 because '0 modulu 10 == 0' and '0 modulu 1 == 1')
-            if (($i + 1) % 10 == 1)
-                $output .= "<tr>\n";
+            // ($i + 1 because '0 modulu 10 == 0' and '0 modulu 1 == 1')
+            if (($i + 1) % $lineBrak == 1) {
+                // close table row
+                if ($i != 0)
+                    $output .= "\n</tr>\n";
 
-            // close table row
-            if (($i + 1) % 10 == 1 || sizeof($myArray) == $i - 1)
-                $output .= "</tr>\n";
+                // open table row
+                $output .= "\n<tr>\n";
+            }
 
-            $output .= ("<td>$number</td>\n");
+            $output .= ("<td>$number</td>");
+
+            // close table row on last element
+            if (sizeof($myArray) == $i + 1)
+                $output .= "\n</tr>\n";
         }
 
         console_log($myArray);

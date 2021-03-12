@@ -43,7 +43,7 @@
 
         $output = "";
         $startNumber = 1; // $_GET["startNumber"];
-        $endNumber = 100; // $_GET["endNumber"];
+        $endNumber = 1000; // $_GET["endNumber"];
         $lineBrak = round(sqrt($endNumber - $startNumber));
         $myArray = array(); // same as '$myArray = [];'
 
