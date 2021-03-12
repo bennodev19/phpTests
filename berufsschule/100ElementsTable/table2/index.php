@@ -17,6 +17,16 @@
     <table border="1" class="TableContainer">
         <?php
 
+        function console_log($output, $with_script_tags = true)
+        {
+            $js_code = 'console.log(' . json_encode($output, JSON_HEX_TAG) .
+                ');';
+            if ($with_script_tags) {
+                $js_code = '<script>' . $js_code . '</script>';
+            }
+            echo $js_code;
+        }
+
         function isPrime($n)
         {
             // Corner case
@@ -31,18 +41,35 @@
             return true;
         }
 
-        $startNumber = $_GET["startNumber"];
-        $endNumber = $_GET["endNumber"];
-        $lineBrak = sqrt($endNumber);
+        $output = "";
+        $startNumber = 1; // $_GET["startNumber"];
+        $endNumber = 99; // $_GET["endNumber"];
+        $lineBrak = sqrt($endNumber - $startNumber);
+        $myArray = array(); // same as '$myArray = [];'
 
+        // Fill Array
         for ($i = $startNumber; $i <= $endNumber; $i++) {
-            // Table brak if number is modulu 10
-            if ($i % $lineBrak == 1) {
-                echo "<tr>";
-            }
-
-            echo "<td " . (isPrime($i) ? "class='yellow'" : '') . ">"  . $i . "</td>";
+            $myArray[] = $i; // add i to array (like push())
         }
+
+        console_log($lineBrak);
+
+        for ($i = 0; $i < sizeof($myArray); $i++) {
+            $number = $myArray[$i];
+
+            // open table row ($i + 1 because '0 modulu 10 == 0' and '0 modulu 1 == 1')
+            if (($i + 1) % $lineBrak == 1)
+                $output .= "<tr>\n";
+
+            // close table row
+            if (($i + 1) % $lineBrak == 1 || sizeof($myArray) == $i - 1)
+                $output .= "</tr>\n";
+
+            $output .= "<td " . (isPrime($i) ? "class='yellow'" : '') . ">"  . $number . "</td>";
+        }
+
+        console_log($output);
+        echo $output;
         ?>
     </table>
 
