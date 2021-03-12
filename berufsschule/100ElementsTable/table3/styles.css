@@ -1,0 +1,28 @@
+body {
+  background-color: lightgray;
+  margin: 0;
+  padding: 0;
+}
+
+/* Table */
+
+.TableContainer {
+  background-color: black;
+}
+
+.TableContainer tbody {
+  background-color: white;
+  padding: 1rem;
+}
+
+.TableContainer td {
+  padding: 0.5rem;
+}
+
+.TableContainer .yellow {
+  background-color: yellow;
+}
+
+.TableContainer .red {
+  background-color: red;
+}

@@ -81,8 +81,6 @@
                 $output .= "\n</tr>\n";
         }
 
-        echo "<p>Count $primeNumberCount</p>";
-
         console_log($output);
         echo $output;
         ?>
