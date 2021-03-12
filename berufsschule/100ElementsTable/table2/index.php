@@ -57,15 +57,21 @@
         for ($i = 0; $i < sizeof($myArray); $i++) {
             $number = $myArray[$i];
 
-            // open table row ($i + 1 because '0 modulu 10 == 0' and '0 modulu 1 == 1')
-            if (($i + 1) % $lineBrak == 1)
-                $output .= "<tr>\n";
+            // ($i + 1 because '0 modulu 10 == 0' and '0 modulu 1 == 1')
+            if (($i + 1) % $lineBrak == 1) {
+                // close table row
+                if ($i != 0)
+                    $output .= "\n</tr>\n";
 
-            // close table row
-            if (($i + 1) % $lineBrak == 1 || sizeof($myArray) == $i - 1)
-                $output .= "</tr>\n";
+                // open table row
+                $output .= "\n<tr>\n";
+            }
 
-            $output .= "<td " . (isPrime($i) ? "class='yellow'" : '') . ">"  . $number . "</td>";
+            $output .= "<td" . (isPrime($i) ? " class='yellow'" : '') . ">"  . $number . "</td>";
+
+            // close table row on last element
+            if (sizeof($myArray) == $i + 1)
+                $output .= "\n</tr>\n";
         }
 
         console_log($output);
