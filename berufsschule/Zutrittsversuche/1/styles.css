@@ -1,0 +1,69 @@
+body {
+  display: flex;
+  flex-direction: column;
+  background-color: lightgray;
+  margin: 0;
+  padding: 0;
+}
+
+/* Header */
+
+header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 1rem;
+  background-color: lightblue;
+}
+
+.HeaderImage {
+  height: 10px;
+}
+
+/* Content */
+
+.ContentContainer {
+  padding: 1rem;
+}
+
+/* Table */
+
+.TableContainer {
+  background-color: black;
+}
+
+.TableContainer thead {
+  background-color: gray;
+}
+
+.TableContainer tbody {
+  border: 1px solid black;
+  background-color: white;
+  padding: 1rem;
+}
+
+.TableContainer td {
+  padding: 0.5rem;
+}
+
+.TableContainer th {
+  padding: 0.5rem;
+}
+
+/* Footer */
+
+footer {
+  display: flex;
+  border-top: 2px solid blue;
+  background-color: lightblue;
+  align-self: flex-start;
+  width: 100%;
+}
+
+.FooterContainer {
+  display: grid;
+  grid-template-rows: auto;
+  grid-template-columns: auto auto;
+  grid-gap: 25px;
+  padding: 1rem;
+}
