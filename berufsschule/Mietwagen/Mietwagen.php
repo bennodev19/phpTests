@@ -44,11 +44,11 @@
 
             <div>
                 <p>Welche Zusatausstattung wuenschen Sie:</p>
-                <input type="checkbox" name="additionalKlimaanlage" value="klimaanlage" />
+                <input type="checkbox" name="additional_klimaanlage" value="true" />
                 Klimaanlage <br />
-                <input type="checkbox" name="additionalNavigator" value="navigator" />
+                <input type="checkbox" name="additional_navigator" value="true" />
                 Navigator <br />
-                <input type="checkbox" name="additionalStandheizung" value="standheizung" />
+                <input type="checkbox" name="additional_standheizung" value="true" />
                 Standheizung <br />
             </div>
 

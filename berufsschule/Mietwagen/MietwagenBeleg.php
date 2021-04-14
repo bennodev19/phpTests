@@ -25,6 +25,12 @@
     <div class="ContentContainer">
         <h1>Mietwagen - Kundenbeleg</h1>
         <?php
+        $output = "";
+        $formValue = $_POST;
+
+        console_log($formValue);
+
+        // Help Functions
         function console_log($output, $with_script_tags = true)
         {
             $js_code = 'console.log(' . json_encode($output, JSON_HEX_TAG) .
@@ -35,40 +41,89 @@
             echo $js_code;
         }
 
-        $output = "";
-        $formValue = $_POST;
+        function startsWith($haystack, $needle)
+        {
+            $length = strlen($needle);
+            return substr($haystack, 0, $length) === $needle;
+        }
 
-        console_log($formValue);
+        // Names Key Map
+        $namesKeyMap = [
+            'kleinwagen' => 'Kleinwagen',
+            'kompaktklasse' => 'Komaktklasse',
+            'familienwagen' => 'Familienwagen',
+            'luxusklasse' => 'Luxusklasse',
+            'klimaanlage' => 'Klimaanlage',
+            'navigator' => 'Navigator',
+            'standheizung' => 'Standheizung',
+            'autohaus_nettmann' => 'Autohaus Nettmann',
+            'idk' => 'I don\'t know'
+        ];
 
-        
+        function get_name($name)
+        {
+            return $namesKeyMap[$name] ?? $name;
+        }
+
+        // Print Result
         if ($formValue['sentData']) {
             // Validate and print customor number
-            if (trim($formValue['customerNumber']) == "") {
+            $customerNumber = trim($formValue['customerNumber']);
+            if ($customerNumber == "") {
                 $output .= "Bitte Kunden Nummer eingeben!";
                 $output .= "<a href=\"Mietwagen.php\"> zurueck </a>";
             } else {
-                $output .= "Kundennummer: ". $formValue['customerNumber'];
+                $output .= "Kundennummer: " . $customerNumber;
             }
 
             $output .= "<br/>";
+
+            // ---
 
             // Validate and print vehicle class
-            if (!$formValue['vehicleClass']) {
+            $vehicleClass = $formValue['vehicleClass'];
+            if (!$vehicleClass) {
                 $output .= "Bitte Fahrzeugklasse auswaehlen!";
             } else {
-                $output .= "Fahrzeugklasse: ". $formValue['vehicleClass'];
+                $output .= "Fahrzeugklasse: " . get_name($vehicleClass);
             }
 
             $output .= "<br/>";
 
-            // print additional
-            if ($formValue['additional']) {
-                $output .= "Bitte Fahrzeugklasse auswaehlen!";
-            } 
+            // ---
 
+            // Print additionals
+            $additionals = [];
+            $additionalKey = 'additional_';
+            foreach ($formValue as $key => $value) {
+                console_log($key .  ' / ' . $value);
 
+                if (startsWith($key, $additionalKey) && $value == 'true')
+                    $additionals[] = str_replace($additionalKey, '', $key);
+            }
+
+            $output .= "Zusatzaustattung: ";
+            if (sizeof($additionals) > 0) {
+                foreach ($additionals as $additional) {
+                    $output .= "- " . get_name($additional) . "<br/>";
+                }
+            } else {
+                $output .= "Keine Zusatz features gewaehlt!";
+            }
+
+            $output .= "<br/>";
+
+            // ---
+
+            // Validate and print location
+            $location = $formValue['location'];
+            if (!$location) {
+                $output .= "Bitte Abholort auswaehlen!";
+            } else {
+                $output .= "Abholort: " . get_name($location);
+            }
         } else {
-            $output .= "unerlaubter Seitenzugriff";
+            $output .= "Unerlaubter Seitenzugriff";
             $output .= "<a href=\"Mietwagen.php\"> Startseite </a>";
         }
 
