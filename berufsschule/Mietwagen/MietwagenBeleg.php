@@ -1,3 +1,6 @@
+<!DOCTYPE html>
+<html lang="en">
+
 <?php
 // Start Session
 session_start();
@@ -6,7 +9,7 @@ session_start();
 $formValue = $_POST;
 $loginSession = null;
 
-if(isset($loginSession)){
+if (!isset($loginSession))
     $loginSession = $_SESSION['loginSession'];
 
 console_log($formValue);
@@ -46,9 +49,6 @@ function get_name($name)
     return $namesKeyMap[$name] ?? $name;
 }
 ?>
-
-<!DOCTYPE html>
-<html lang="en">
 
 <head>
     <meta charset="UTF-8">

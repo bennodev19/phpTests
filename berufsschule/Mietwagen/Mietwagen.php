@@ -1,3 +1,6 @@
+<!DOCTYPE html>
+<html lang="en">
+
 <?php
 // Start Session
 session_start();
@@ -31,10 +34,6 @@ function console_log($output, $with_script_tags = true)
     echo $js_code;
 }
 ?>
-
-
-<!DOCTYPE html>
-<html lang="en">
 
 <head>
     <meta charset="UTF-8">
