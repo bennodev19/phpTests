@@ -1,6 +1,7 @@
 <?php
 
 $formValue = $_POST;
+$numbersCount = 2;
 $numbers = [];
 
 // Help Functions
@@ -21,11 +22,22 @@ function sortNumbers($numbers)
         return $b > $a;
     });
 
+    console_log($numbers);
+
     return $numbers;
 }
 
 // Check if FormValue got submitted
 if (isset($formValue['sentFormData'])) {
+    // Get Numbers of Input Fields
+    $tempNumbers = [];
+    for ($i = 1; $i <= $numbersCount; $i++) {
+        $tempNumbers[$i] = $formValue['number' . $i];
+    }
+
     // Sort Numbers
-    $numbers = sortNumbers(array($formValue['number1'], $formValue['number2']));
+    $numbers = sortNumbers($tempNumbers);
+
+    // Reset Form Value
+    unset($_POST);
 }

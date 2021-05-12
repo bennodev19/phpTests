@@ -17,9 +17,14 @@ require "logic.inc.php";
     <h1>Zahlen vergleichen und tauschen</h1>
 
     <form method="post" action="">
-        <input type="number" name="number1" size="25" value="<?php echo (isset($numbers[0])) ? $numbers[0] : ''; ?>" />
-        <br />
-        <input type="number" name="number2" size="25" value="<?php echo (isset($numbers[1])) ? $numbers[1] : ''; ?>" />
+        <?php
+        for ($i = 1; $i <= $numbersCount; $i++) {
+        ?>
+            <input type="number" name=<?php echo "number" . $i ?> size="25" value="<?php echo (isset($numbers[$i -1])) ? $numbers[$i - 1] : '0'; ?>" />
+            <br />
+        <?php
+        }
+        ?>
 
         <div>
             <button type="submit" name="sentFormData" value="true">Vergleichen/Tauschen</button>
