@@ -1,9 +1,44 @@
+<?php
+// Start Session
+session_start();
+
+// Get form Value
+$formValue = $_POST;
+
+// Create Login Session
+if (isset($formValue['sentLoginData'])) {
+    $password = $formValue["password"];
+    $customerNumber = $formValue["customerNumber"];
+
+    $loginSession = [
+        'customerNumber' => $customerNumber
+    ];
+
+    // Fill Login Session into the Session 'Storage'
+    $_SESSION["loginSession"] = $loginSession;
+}
+
+console_log($_SESSION);
+
+// Help Functions
+function console_log($output, $with_script_tags = true)
+{
+    $js_code = 'console.log(' . json_encode($output, JSON_HEX_TAG) .
+        ');';
+    if ($with_script_tags) {
+        $js_code = '<script>' . $js_code . '</script>';
+    }
+    echo $js_code;
+}
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
-    <title>Build a table</title>
+    <title>Mietwagen</title>
     <link rel="stylesheet" href="styles.css" />
 </head>
 
@@ -22,50 +57,63 @@
     </header>
 
     <!-- Content -->
-    <div class="ContentContainer">
-        <h1>Mietwagen</h1>
-        <form method="post" action="MietwagenBeleg.php">
-            <div>
-                Kundennummer:
-                <input type="text" name="customerNumber" size="25" />
-            </div>
+    <?php
+    if ($loginSession['customerNumber']) {
+    ?>
+        <div class="ContentContainer">
+            <h1>Mietwagen</h1>
+            <form method="post" action="MietwagenBeleg.php">
+                <?php
+                $output = "Kundennummer: " . $loginSession['customerNumber'];
 
-            <div>
-                <p>Welche Fahryeugklasse bevorzugen Sie:</p>
-                <input type="radio" name="vehicleClass" value="kleinwagen" checked />
-                Kleinwagen<br />
-                <input type="radio" name="vehicleClass" value="kompaktklasse" />
-                Kompaktklasse <br />
-                <input type="radio" name="vehicleClass" value="familienwagen" />
-                Familienwagen <br />
-                <input type="radio" name="vehicleClass" value="luxusklasse" />
-                Luxusklasse <br />
-            </div>
+                console_log($output);
+                echo $output;
+                ?>
 
-            <div>
-                <p>Welche Zusatausstattung wuenschen Sie:</p>
-                <input type="checkbox" name="additional_klimaanlage" value="true" />
-                Klimaanlage <br />
-                <input type="checkbox" name="additional_navigator" value="true" />
-                Navigator <br />
-                <input type="checkbox" name="additional_standheizung" value="true" />
-                Standheizung <br />
-            </div>
+                <div>
+                    <p>Welche Fahryeugklasse bevorzugen Sie:</p>
+                    <input type="radio" name="vehicleClass" value="kleinwagen" checked />
+                    Kleinwagen<br />
+                    <input type="radio" name="vehicleClass" value="kompaktklasse" />
+                    Kompaktklasse <br />
+                    <input type="radio" name="vehicleClass" value="familienwagen" />
+                    Familienwagen <br />
+                    <input type="radio" name="vehicleClass" value="luxusklasse" />
+                    Luxusklasse <br />
+                </div>
 
-            <div>
-                <p>Wo wollen Sie das Auto abholen?checkdnsrr</p>
-                <select name="location" size="1">
-                    <option value="autohaus_nettmann">Autohaus Nettmann</option>
-                    <option value="idk">I don't know</option>
-                </select>
-            </div>
+                <div>
+                    <p>Welche Zusatausstattung wuenschen Sie:</p>
+                    <input type="checkbox" name="additional_klimaanlage" value="true" />
+                    Klimaanlage <br />
+                    <input type="checkbox" name="additional_navigator" value="true" />
+                    Navigator <br />
+                    <input type="checkbox" name="additional_standheizung" value="true" />
+                    Standheizung <br />
+                </div>
 
-            <div>
-                <input type="reset" value="Loeschen" />
-                <button type="submit" name="sentData" value="true">Abschicken</button>
-            </div>
-        </form>
-    </div>
+                <div>
+                    <p>Wo wollen Sie das Auto abholen?checkdnsrr</p>
+                    <select name="location" size="1">
+                        <option value="autohaus_nettmann">Autohaus Nettmann</option>
+                        <option value="idk">I don't know</option>
+                    </select>
+                </div>
+
+                <div>
+                    <input type="reset" value="Loeschen" />
+                    <button type="submit" name="sentRentCarForm" value="true">Abschicken</button>
+                </div>
+            </form>
+        </div>
+    <?php
+    } else {
+    ?>
+        Unerlaubter Seitenzugriff
+        <a href=\"Mietwagen.php\"> Startseite </a>
+    <?php
+    }
+    ?>
 
     <!-- Footer -->
     <footer>

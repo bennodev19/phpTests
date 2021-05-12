@@ -1,9 +1,58 @@
+<?php
+// Start Session
+session_start();
+
+// Get Login Session and Form Value
+$formValue = $_POST;
+$loginSession = null;
+
+if(isset($loginSession)){
+    $loginSession = $_SESSION['loginSession'];
+
+console_log($formValue);
+
+// Names Key Map
+$namesKeyMap = [
+    'kleinwagen' => 'Kleinwagen',
+    'kompaktklasse' => 'Komaktklasse',
+    'familienwagen' => 'Familienwagen',
+    'luxusklasse' => 'Luxusklasse',
+    'klimaanlage' => 'Klimaanlage',
+    'navigator' => 'Navigator',
+    'standheizung' => 'Standheizung',
+    'autohaus_nettmann' => 'Autohaus Nettmann',
+    'idk' => 'I don\'t know'
+];
+
+// Help Functions
+function console_log($output, $with_script_tags = true)
+{
+    $js_code = 'console.log(' . json_encode($output, JSON_HEX_TAG) .
+        ');';
+    if ($with_script_tags) {
+        $js_code = '<script>' . $js_code . '</script>';
+    }
+    echo $js_code;
+}
+
+function startsWith($haystack, $needle)
+{
+    $length = strlen($needle);
+    return substr($haystack, 0, $length) === $needle;
+}
+
+function get_name($name)
+{
+    return $namesKeyMap[$name] ?? $name;
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
-    <title>Build a table</title>
+    <title>Mietwagen Beleg</title>
     <link rel="stylesheet" href="styles.css" />
 </head>
 
@@ -26,49 +75,11 @@
         <h1>Mietwagen - Kundenbeleg</h1>
         <?php
         $output = "";
-        $formValue = $_POST;
-
-        console_log($formValue);
-
-        // Help Functions
-        function console_log($output, $with_script_tags = true)
-        {
-            $js_code = 'console.log(' . json_encode($output, JSON_HEX_TAG) .
-                ');';
-            if ($with_script_tags) {
-                $js_code = '<script>' . $js_code . '</script>';
-            }
-            echo $js_code;
-        }
-
-        function startsWith($haystack, $needle)
-        {
-            $length = strlen($needle);
-            return substr($haystack, 0, $length) === $needle;
-        }
-
-        // Names Key Map
-        $namesKeyMap = [
-            'kleinwagen' => 'Kleinwagen',
-            'kompaktklasse' => 'Komaktklasse',
-            'familienwagen' => 'Familienwagen',
-            'luxusklasse' => 'Luxusklasse',
-            'klimaanlage' => 'Klimaanlage',
-            'navigator' => 'Navigator',
-            'standheizung' => 'Standheizung',
-            'autohaus_nettmann' => 'Autohaus Nettmann',
-            'idk' => 'I don\'t know'
-        ];
-
-        function get_name($name)
-        {
-            return $namesKeyMap[$name] ?? $name;
-        }
 
         // Print Result
-        if ($formValue['sentData']) {
+        if (isset($formValue['sentRentCarForm']) && isset($loginSession)) {
             // Validate and print customor number
-            $customerNumber = trim($formValue['customerNumber']);
+            $customerNumber = trim($loginSession['customerNumber']);
             if ($customerNumber == "") {
                 $output .= "Bitte Kunden Nummer eingeben!";
                 $output .= "<a href=\"Mietwagen.php\"> zurueck </a>";
