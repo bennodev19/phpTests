@@ -1,37 +1,21 @@
+<?php
+require "../components/Footer.php";
+require "../components/Header.php";
+require "../controller.php";
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
 <?php
-// Start Session
-session_start();
+startSession();
 
-// Get form Value
-$formValue = $_POST;
+$loginSession = $loginSession = getLoginSession();
+$priceKeyMap = getPriceKeyMap();
 
-// Create Login Session
-if (isset($formValue['sentLoginData'])) {
-    $password = $formValue["password"];
-    $customerNumber = $formValue["customerNumber"];
-
-    $loginSession = [
-        'customerNumber' => $customerNumber
-    ];
-
-    // Fill Login Session into the Session 'Storage'
-    $_SESSION["loginSession"] = $loginSession;
-}
-
-console_log($_SESSION);
-
-// Help Functions
-function console_log($output, $with_script_tags = true)
-{
-    $js_code = 'console.log(' . json_encode($output, JSON_HEX_TAG) .
-        ');';
-    if ($with_script_tags) {
-        $js_code = '<script>' . $js_code . '</script>';
-    }
-    echo $js_code;
+// Check if User is logged in otherwise go to Login.php
+if ($loginSession == null) {
+    redirect('./Login.php');
 }
 ?>
 
@@ -44,23 +28,15 @@ function console_log($output, $with_script_tags = true)
 <body>
 
     <!-- Header -->
-    <header>
-        <div>
-            <a href="/Zutrittsversuche">Zutrittsversuche</a>
-            |
-            <a href="/Mitarbeiter">Mitarbeiter</a>
-            |
-            <a href="/Mietwagen">Mietwagen</a>
-        </div>
-        <img alt="Logo" height="50" src="./resources/Nettmann Logo.png" />
-    </header>
+    <?php
+    renderHeader('Mietwagen');
+    ?>
 
     <!-- Content -->
     <?php
-    if ($loginSession['customerNumber']) {
+    if ($loginSession != null) {
     ?>
         <div class="ContentContainer">
-            <h1>Mietwagen</h1>
             <form method="post" action="MietwagenBeleg.php">
                 <?php
                 $output = "Kundennummer: " . $loginSession['customerNumber'];
@@ -72,13 +48,13 @@ function console_log($output, $with_script_tags = true)
                 <div>
                     <p>Welche Fahryeugklasse bevorzugen Sie:</p>
                     <input type="radio" name="vehicleClass" value="kleinwagen" checked />
-                    Kleinwagen<br />
+                    Kleinwagen (<?php echo $priceKeyMap['kleinwagen'] ?> Netto) <br />
                     <input type="radio" name="vehicleClass" value="kompaktklasse" />
-                    Kompaktklasse <br />
+                    Kompaktklasse (<?php echo $priceKeyMap['kompaktklasse'] ?> Netto) <br />
                     <input type="radio" name="vehicleClass" value="familienwagen" />
-                    Familienwagen <br />
+                    Familienwagen (<?php echo $priceKeyMap['familienwagen'] ?> Netto) <br />
                     <input type="radio" name="vehicleClass" value="luxusklasse" />
-                    Luxusklasse <br />
+                    Luxusklasse (<?php echo $priceKeyMap['luxusklasse'] ?> Netto) <br />
                 </div>
 
                 <div>
@@ -115,27 +91,10 @@ function console_log($output, $with_script_tags = true)
     ?>
 
     <!-- Footer -->
-    <footer>
-        <div class="FooterContainer">
-            <div>
-                <h3>Kontakt</h3>
-                <ul>
-                    <li>Ottostraße 22, 90762 Fürth</li>
-                    <li>0911/11...</li>
-                    <li>info@autohaus-nettmann.de</li>
-                </ul>
-            </div>
+    <?php
+    renderFooter();
+    ?>
 
-            <div>
-                <h3>Bankdaten</h3>
-                <ul>
-                    <li>IBAN: DE76 1231 ...</li>
-                    <li>BIC: 123 ...</li>
-                    <li>Institut: SuperBank</li>
-                </ul>
-            </div>
-        </div>
-    </footer>
 </body>
 
 </html>

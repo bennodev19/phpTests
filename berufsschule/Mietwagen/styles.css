@@ -20,6 +20,10 @@ header {
   height: 10px;
 }
 
+.TitleContainer {
+  padding: 1rem;
+}
+
 /* Content */
 
 .ContentContainer {
