@@ -1,5 +1,7 @@
 <?php
 
+// TODO change this, found a solution to the problem:
+// // https://www.php.net/manual/de/language.variables.scope.php
 // Names Key Map
 // $namesKeyMap = [
 //     'kleinwagen' => 'Kleinwagen',
@@ -28,6 +30,8 @@ function getNamesKeyMap() {
     ];
 }
 
+// TODO change this, found a solution to the problem:
+// // https://www.php.net/manual/de/language.variables.scope.php
 // Price Key Map
 // $priceKeyMap = [
 //     'kleinwagen' => 29.99,
