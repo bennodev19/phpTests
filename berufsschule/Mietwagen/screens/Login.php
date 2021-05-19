@@ -1,7 +1,9 @@
 <?php
 require "../components/Footer.php";
 require "../components/Header.php";
-require "../controller.php";
+require "../src/controller/loginController.php";
+require "../src/controller/userController.php";
+require "../src/utils.php";
 ?>
 
 <!DOCTYPE html>

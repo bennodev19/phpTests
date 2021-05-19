@@ -14,11 +14,11 @@ function renderHeader($title)
 ?>
     <header>
         <div>
-            <a href="/Zutrittsversuche">Zutrittsversuche</a>
+            <a href="./Zutrittsversuche.php">Zutrittsversuche</a>
             |
-            <a href="/Mitarbeiter">Mitarbeiter</a>
+            <a href="./Mitarbeiter.php">Mitarbeiter</a>
             |
-            <a href="/Mietwagen">Mietwagen</a>
+            <a href="./Mietwagen.php">Mietwagen</a>
             |
             <a href='<?php echo getCurrentUrl() ?>?logout=true'>Logout</a>
         </div>

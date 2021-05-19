@@ -30,6 +30,18 @@ header {
   padding: 1rem;
 }
 
+.ContentContainer table {
+  border-spacing: 0;
+  border-collapse: collapse;
+}
+
+.ContentContainer th,
+.ContentContainer td {
+  border: solid 1px grey;
+  padding: 5px 20px;
+  text-align: left;
+}
+
 /* Footer */
 
 footer {

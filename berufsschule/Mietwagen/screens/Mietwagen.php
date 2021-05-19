@@ -1,7 +1,9 @@
 <?php
 require "../components/Footer.php";
 require "../components/Header.php";
-require "../controller.php";
+require "../src/controller/mietwagenController.php";
+require "../src/controller/loginController.php";
+require "../src/utils.php";
 ?>
 
 <!DOCTYPE html>
@@ -11,7 +13,7 @@ require "../controller.php";
 startSession();
 
 $loginSession = $loginSession = getLoginSession();
-$priceKeyMap = getPriceKeyMap();
+global $priceKeyMap;
 
 // Check if User is logged in otherwise go to Login.php
 if ($loginSession == null) {
@@ -22,7 +24,7 @@ if ($loginSession == null) {
 <head>
     <meta charset="UTF-8">
     <title>Mietwagen</title>
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="../styles.css" />
 </head>
 
 <body>
@@ -33,10 +35,10 @@ if ($loginSession == null) {
     ?>
 
     <!-- Content -->
-    <?php
-    if ($loginSession != null) {
-    ?>
-        <div class="ContentContainer">
+    <div class="ContentContainer">
+        <?php
+        if ($loginSession != null) {
+        ?>
             <form method="post" action="MietwagenBeleg.php">
                 <?php
                 $output = "Kundennummer: " . $loginSession['customerNumber'];
@@ -80,15 +82,15 @@ if ($loginSession == null) {
                     <button type="submit" name="sentRentCarForm" value="true">Abschicken</button>
                 </div>
             </form>
-        </div>
-    <?php
-    } else {
-    ?>
-        Unerlaubter Seitenzugriff
-        <a href=\"Mietwagen.php\"> Startseite </a>
-    <?php
-    }
-    ?>
+        <?php
+        } else {
+        ?>
+            Unerlaubter Seitenzugriff
+            <a href=\"Mietwagen.php\"> Startseite </a>
+        <?php
+        }
+        ?>
+    </div>
 
     <!-- Footer -->
     <?php

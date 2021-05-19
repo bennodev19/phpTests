@@ -1,7 +1,9 @@
 <?php
 require "../components/Footer.php";
 require "../components/Header.php";
-require "../controller.php";
+require "../src/controller/mietwagenController.php";
+require "../src/controller/loginController.php";
+require "../src/utils.php";
 ?>
 
 <!DOCTYPE html>
@@ -13,9 +15,8 @@ startSession();
 // Get Login Session and Form Value
 $loginSession = getLoginSession();
 $formValue = $_POST;
-// $priceKeyMap = getPriceKeyMap();
-
-console_log(getNamesKeyMap());
+global $priceKeyMap;
+global $namesKeyMap;
 
 // Check if User is logged in otherwise go to Login.php
 if ($loginSession == null) {
@@ -31,20 +32,19 @@ function startsWith($haystack, $needle)
 
 function getName($name)
 {
-    return getNamesKeyMap()[$name] ?? $name;
+    return $namesKeyMap[$name] ?? $name;
 }
 
 function getPrice($name)
 {
-    // return $priceKeyMap[$name]; // Doesn't work because I guess the scope of the function is different.. but idk
-    return getPriceKeyMap()[$name] ?? 0;
+    return $priceKeyMap[$name] ?? 0;
 }
 ?>
 
 <head>
     <meta charset="UTF-8">
     <title>Mietwagen Beleg</title>
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="../styles.css" />
 </head>
 
 <body>
