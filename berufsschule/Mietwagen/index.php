@@ -1,5 +1,5 @@
 <?php
-require('./controller.php');
+require('./src/utils.php');
 
 redirect('./screens/Login.php');
 ?>

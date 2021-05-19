@@ -7,18 +7,18 @@ function getZutrittsversuche($limit = null)
 
     // Create SQL Query
     $sqlQuery = "
-    SELECT z.ZutrittsversuchID Id, 
-    z.Zeitstempel as time, 
-    c.ChipsID as chipId, 
-    b.Nachname as chipOwner, 
+    SELECT z.ZutrittsversuchID AS id, 
+    z.Zeitstempel AS time, 
+    c.ChipsID AS chipId, 
+    b.Nachname AS chipOwner, 
     r.Bezeichnung AS door, 
-    z.Ergebnis as result
-    FROM tblZutrittsversuche as z
-    INNER JOIN tblChips as c 
+    z.Ergebnis AS result
+    FROM tblZutrittsversuche AS z
+    INNER JOIN tblChips AS c 
     ON z.tblChips_ChipsID = c.ChipsID
-    INNER JOIN tblBenutzer as b
+    INNER JOIN tblBenutzer AS b
     ON c.tblBenutzer_BenutzerID = b.BenutzerID
-    INNER JOIN tblReader as r
+    INNER JOIN tblReader AS r
     ON r.ReaderID = z.tblReader_ReaderID
     GROUP BY z.ZutrittsversuchID
     " . (isset($limit) ? (" LIMIT " . $limit . ";") : ";");
